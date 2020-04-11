@@ -1,0 +1,9 @@
+#!/bin/bash
+toSearch=$1
+
+[[ "$toSearch" == "" ]] && {
+	echo -n "What to find? "
+	read toSearch
+}
+
+find . | grep "$toSearch"
