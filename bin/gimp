@@ -1,0 +1,12 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+gimp=/Applications/GIMP.app/Contents/MacOS/GIMP
+
+file_to_open=""
+
+[[ "$1" == "" ]] || {
+    file_to_open=$1
+}
+
+$gimp "$file_to_open" > /dev/null 2> /dev/null &
