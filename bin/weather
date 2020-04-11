@@ -1,0 +1,10 @@
+#!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+location="Santiago de Compostela, Spain"
+
+[[ "$1" == "" ]] || {
+    location=$1
+}
+
+curl "http://wttr.in/$location"
