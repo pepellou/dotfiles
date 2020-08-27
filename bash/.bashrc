@@ -22,4 +22,15 @@ PERL_MM_OPT="INSTALL_BASE=/Users/pepellou/perl5"; export PERL_MM_OPT;
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash ] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash
 
+if [ "$(command -v exa)" ]; then
+    unalias 'll' 2> /dev/null || true
+    unalias 'l' 2> /dev/null || true
+    unalias 'la' 2> /dev/null || true
+    unalias 'ls' 2> /dev/null || true
+    alias ls='exa -G  --color auto --icons -a -s type'
+    alias ll='exa -l --color always --icons -a -s type'
+    alias l='exa -G  --color auto --icons -a -s type'
+    alias la='exa -l --color always --icons -a -s type'
+fi
+
 eval "$(starship init bash)"
