@@ -22,8 +22,3 @@ PERL_MM_OPT="INSTALL_BASE=/Users/pepellou/perl5"; export PERL_MM_OPT;
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash ] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.bash
 
-let g:S = 0
-function! Sum(number)
-  let g:S = g:S + a:number
-  return a:number
-endfunction
