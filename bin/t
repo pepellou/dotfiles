@@ -1,0 +1,1 @@
+test -n "$1" && tree -L $1 || tree

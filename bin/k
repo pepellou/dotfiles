@@ -1,0 +1,4 @@
+# Opens my personal knowledge repository
+
+open 'https://github.com/pepellou/knowledge'
+alacritty --working-directory ~/Workspace/knowledge --title KNOWLEDGE &
