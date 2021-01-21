@@ -109,7 +109,7 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
-color codeschool
+"color codeschool
 :set cpoptions+=$ " puts a $ marker for the end of words/lines in cw/c$ commands
 :set number
 
