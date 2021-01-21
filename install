@@ -1,27 +1,26 @@
 #!/bin/bash
 #
 
+bin_dir=/usr/local/bin
+home_dir=${HOME}
+
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-cp ${dir}/alacritty/alacritty.yml ${HOME}/.config/alacritty/alacritty.yml
+cp ${dir}/alacritty/alacritty.yml ${home_dir}/.config/alacritty/alacritty.yml
 
-cp ${dir}/bash/.bashrc ${HOME}/.bashrc
-cp ${dir}/bash/.bash_profile ${HOME}/.bashprofile
+cp ${dir}/bash/.bashrc ${home_dir}/.bashrc
+cp ${dir}/bash/.bash_profile ${home_dir}/.bashprofile
 
-cp ${dir}/bin/find_file /usr/local/bin/find_file
-cp ${dir}/bin/gimp /usr/local/bin/gimp
-cp ${dir}/bin/gt /usr/local/bin/gt
-cp ${dir}/bin/gtes /usr/local/bin/gtes
-cp ${dir}/bin/weather /usr/local/bin/weather
+cp ${dir}/bin/* ${bin_dir}/
 
 cp ${dir}/etc/bash.completion.d/complete_tst /etc/bash.completion.d/complete_tst
 
-cp ${dir}/git/.git-commit-template ${HOME}/.git-commit-template
-cp ${dir}/git/.git-completion.bash ${HOME}/.git-completion.bash
-cp ${dir}/git/.gitconfig ${HOME}/.gitconfig
-cp ${dir}/git/.gitignore ${HOME}/.gitignore
-git config --global commit.template ${HOME}/.git-commit-template
+cp ${dir}/git/.git-commit-template ${home_dir}/.git-commit-template
+cp ${dir}/git/.git-completion.bash ${home_dir}/.git-completion.bash
+cp ${dir}/git/.gitconfig ${home_dir}/.gitconfig
+cp ${dir}/git/.gitignore ${home_dir}/.gitignore
+git config --global commit.template ${home_dir}/.git-commit-template
 
-cp ${dir}/vim/.vimrc ${HOME}/.vimrc
+cp ${dir}/vim/.vimrc ${home_dir}/.vimrc
 
-cp ${dir}/zsh/.zshrc ${HOME}/.zshrc
+cp ${dir}/zsh/.zshrc ${home_dir}/.zshrc
