@@ -1,0 +1,12 @@
+_script()
+{
+  _script_options="CoursePage MoveTrainer VariationPage MoveTrainer.TODO.test.js MoveTrainer.boardRightClick.test.js MoveTrainer.chapterOrBookCompletion.test.js MoveTrainer.chessboardPieces.realBoard.test.js MoveTrainer.clickyMoves_quiz.test.js MoveTrainer.clickyMoves_showLessonMoves.test.js MoveTrainer.clickyMoves_withParsing.test.js MoveTrainer.courseRating.test.js MoveTrainer.debugNext_cheat.test.js MoveTrainer.debugOutput.test.js MoveTrainer.draggingPieces.test.js MoveTrainer.errorHandling.test.js MoveTrainer.fav.test.js MoveTrainer.getNewLessonPlan.test.js MoveTrainer.happyPath.realBoard.test.js MoveTrainer.isAlternative.test.js MoveTrainer.isInformational.test.js MoveTrainer.lessonRecap_multiVariation.test.js MoveTrainer.markedLastMoves.test.js MoveTrainer.nextLesson.test.js MoveTrainer.nullMove.test.js MoveTrainer.practiceProgress.test.js MoveTrainer.premove.realboard.test.js MoveTrainer.promotion.test.js MoveTrainer.quiz_basicHappyPath.test.js MoveTrainer.quiz_checkmate.test.js MoveTrainer.quiz_giveUpMove.test.js MoveTrainer.quiz_incorrectMove.test.js MoveTrainer.quiz_incorrectMoveRetry.test.js MoveTrainer.quiz_instructions.test.js MoveTrainer.quiz_overstudy.test.js MoveTrainer.quiz_pauseButton.test.js MoveTrainer.quiz_pieceSelection.realBoard.test.js MoveTrainer.quiz_quizToQuizTransition.test.js MoveTrainer.quiz_softFailMove.test.js MoveTrainer.quiz_tacticsHint.test.js MoveTrainer.quiz_timeUp.test.js MoveTrainer.renderCount.test.js MoveTrainer.saveLesson.test.js MoveTrainer.settingsUi.test.js MoveTrainer.settings_customSettingsHappyPath.test.js MoveTrainer.settings_defaultSettings.test.js MoveTrainer.settings_learnReps.test.js MoveTrainer.settings_moveDelays.test.js MoveTrainer.settings_reviewOrder.test.js MoveTrainer.settings_reviewOverstudy.test.js MoveTrainer.settings_teachIfNew.test.js MoveTrainer.singleLessonSession.test.js MoveTrainer.teach.test.js MoveTrainer.teach_keyUserMove.test.js MoveTrainer.teach_nonKeyUserMove.test.js MoveTrainer.teach_pauseTextAtFirstAndLast.test.js MoveTrainer.teach_pauseTextAtFirstAndLast_2userMoves.test.js MoveTrainer.teach_pauseTextAtFirstAndLast_intro.test.js MoveTrainer.teach_pauseTextAtFirstAndLast_longTeachChain.test.js MoveTrainer.teach_pauseTextAtLast.test.js MoveTrainer.teach_pauseTextAtLast_intro.test.js"
+
+  local cur prev
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  COMPREPLY=( $(compgen -W "${_script_options}" -- ${cur}) )
+
+  return 0
+}
+complete -o nospace -F _script tst
