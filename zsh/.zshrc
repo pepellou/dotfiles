@@ -13,6 +13,6 @@ alias rbc="git rebase --continue"
 alias a="clear && ag"
 
 source /etc/bash.completion.d/complete_tst
-source ${HOME}/.git-completion.bash
+#source ${HOME}/.git-completion.bash
 
 export PATH=${PATH}:/Users/pepellou/.cargo/bin
