@@ -2,7 +2,6 @@ autoload -U +X bashcompinit && bashcompinit
 autoload -U +X compinit && compinit -u
 
 alias co="git co"
-alias ci="git ci"
 alias st="git st"
 alias br="git br"
 alias ap="git add -p"
