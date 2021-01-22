@@ -59,8 +59,8 @@
 [status]
     showUntrackedFiles = all
 [user]
-    name = XXXXXXXXXX
-    email = XXXXXXXXXX
+    name = {user.name}
+    email = {user.email}
 [web]
     browser = google-chrome
 [credential]
@@ -68,4 +68,4 @@
 [rebase]
     autosquash = true
 [github]
-    user = XXXXXXXXXX
+    user = {github.user}
