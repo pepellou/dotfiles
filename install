@@ -21,6 +21,14 @@ function copy {
     cp ${origin} ${destination}
 }
 
+function copy_dir {
+    origin=$1
+    destination=$2
+
+    echo -e "   \e[32m-\e[0m \e[90m${destination}/*\e[0m"
+    cp ${origin}/* ${destination}/
+}
+
 function ask_for {
     what=$1
 
@@ -59,7 +67,7 @@ copy ${dir}/bash/.bash_profile ${home_dir}/.bashprofile
 copy ${dir}/etc/bash.completion.d/complete_tst /etc/bash.completion.d/complete_tst
 
 installing 'bin'
-copy ${dir}/bin/* ${bin_dir}/
+copy_dir ${dir}/bin ${bin_dir}
 
 installing 'git'
 copy ${dir}/git/.git-commit-template ${home_dir}/.git-commit-template
