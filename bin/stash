@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+if [ $# -eq 0 ]; then
+    git stash list
+    exit 1
+fi
+
+param=$1
+
+if [ "${param}" = "apply" ]; then
+    git stash apply stash@{${2}}
+else
+    git stash show -P stash@{${param}}
+fi
