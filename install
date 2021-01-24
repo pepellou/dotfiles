@@ -73,7 +73,6 @@ installing 'git'
 copy ${dir}/git/.git-commit-template ${home_dir}/.git-commit-template
 copy ${dir}/git/.git-completion.bash ${home_dir}/.git-completion.bash
 copy ${dir}/git/.gitignore ${home_dir}/.gitignore
-git config --global commit.template ${home_dir}/.git-commit-template
 ask_for 'Git user name' && git_user_name=${value}
 ask_for 'Git user email' && git_user_email=${value}
 ask_for 'Github user' && github_user=${value}
