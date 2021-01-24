@@ -46,7 +46,7 @@
     status = true
     template = ~/.git-commit-template
 [core]
-    editor = vim
+    editor = "vim -c '/^$'"
     excludesfile = ~/.gitignore
     bigFileThreshold = 200k
     autocrlf = input
