@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Generate public and private key for excalidraw.com and open it
+
+public_key=$(head /dev/urandom | base64 | tr -dc '[0-9a-f]' | cut -c -20)
+private_key=$(head /dev/urandom | base64 | tr -dc '[a-zA-Z0-9]' | cut -c -22)
+
+open "https://excalidraw.com/#room=${public_key},${private_key}"
