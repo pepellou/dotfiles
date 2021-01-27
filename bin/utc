@@ -1,0 +1,3 @@
+# Opens worldtimebuddy.com with my timezone and UTC
+
+open 'https://www.worldtimebuddy.com/?pl=1&lid=5024825,100&h=5024825&hf=1'
