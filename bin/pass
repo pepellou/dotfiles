@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Generate safe password
+
+pwgen -c -s 16 1
