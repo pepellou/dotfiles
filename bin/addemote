@@ -1,0 +1,9 @@
+#!/bin/bash
+emotes_file=~/.emotes.list
+
+if [ $# -eq 2 ]; then
+    key=$1
+    emote=$2
+
+    echo $key:$emote >> ${emotes_file}
+fi

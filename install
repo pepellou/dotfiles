@@ -69,6 +69,9 @@ copy ${dir}/etc/bash.completion.d/complete_tst /etc/bash.completion.d/complete_t
 installing 'bin'
 copy_dir ${dir}/bin ${bin_dir}
 
+installing 'emotes list config'
+copy ${dir}/configs/.emotes.list ${home_dir}/.emotes.list
+
 installing 'git'
 copy ${dir}/git/.git-commit-template ${home_dir}/.git-commit-template
 copy ${dir}/git/.git-completion.bash ${home_dir}/.git-completion.bash
