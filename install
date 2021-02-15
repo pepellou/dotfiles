@@ -21,6 +21,23 @@ function copy {
     cp ${origin} ${destination}
 }
 
+function copy_config {
+    origin=$1
+    destination=$2
+    write=n
+
+    if [ -f "${destination}" ]; then
+        echo -en "   ❓ Overwrite \"\e[32m${destination}\e[0m\"? (y/n) "
+        read write
+    else
+        write=y
+    fi
+
+    if [ "$write" = "y" ]; then
+        copy ${origin} ${destination}
+    fi
+}
+
 function copy_dir {
     origin=$1
     destination=$2
@@ -70,7 +87,7 @@ installing 'bin'
 copy_dir ${dir}/bin ${bin_dir}
 
 installing 'emotes list config'
-copy ${dir}/configs/.emotes.list ${home_dir}/.emotes.list
+copy_config ${dir}/configs/.emotes.list ${home_dir}/.emotes.list
 
 installing 'git'
 copy ${dir}/git/.git-commit-template ${home_dir}/.git-commit-template
