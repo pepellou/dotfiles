@@ -1,0 +1,99 @@
+#!/bin/zsh
+#
+
+bin_dir=/usr/local/bin
+home_dir=${HOME}
+
+dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+tempFile=${dir}/tmpSDFJPOIJHJKedgekjn.temporal
+
+function updating {
+    what=$1
+
+    echo -e " \e[32m✔️\e[0m Updating files for \e[31m${what}\e[0m:"
+}
+
+function copy {
+    origin=$1
+    destination=$2
+
+    echo -e "   \e[32m-\e[0m \e[90m${destination}\e[0m"
+    cp ${origin} ${destination}
+}
+
+function copy_config {
+    origin=$1
+    destination=$2
+    write=n
+
+    if [ -f "${destination}" ]; then
+        echo -en "   ❓ Overwrite \"\e[32m${destination}\e[0m\"? (y/n) "
+        read write
+    else
+        write=y
+    fi
+
+    if [ "$write" = "y" ]; then
+        copy ${origin} ${destination}
+    fi
+}
+
+function copy_dir {
+    origin=$1
+    destination=$2
+
+    echo -e "   \e[32m-\e[0m \e[90m${destination}/*\e[0m"
+    cp ${origin}/* ${destination}/
+}
+
+function ask_for {
+    what=$1
+
+    echo -en "   ❓ Please enter \"\e[32m${what}\e[0m\": "
+    read value
+}
+
+function copy_temp_file_from {
+    origin=$1
+
+    cp ${origin} ${tempFile}
+}
+
+function copy_temp_file_to {
+    destination=$1
+
+    copy ${tempFile} ${destination}
+    rm ${tempFile}
+}
+
+function replace_in_temp_file {
+    what=$1
+    replacement=$2
+
+    tempFile2=${tempFile}.temp
+    sed "s/${what}/${replacement}/g" ${tempFile} > ${tempFile2}
+    mv ${tempFile2} ${tempFile}
+}
+
+updating 'alacritty'
+copy ${home_dir}/.config/alacritty/alacritty.yml ${dir}/alacritty/alacritty.yml
+
+updating 'bash'
+copy ${home_dir}/.bashrc ${dir}/bash/.bashrc
+copy ${home_dir}/.bashprofile ${dir}/bash/.bash_profile
+copy /etc/bash.completion.d/complete_tst ${dir}/etc/bash.completion.d/complete_tst
+
+updating 'emotes list config'
+copy ${home_dir}/.emotes.list ${dir}/configs/.emotes.list
+
+updating 'git'
+copy ${home_dir}/.git-commit-template ${dir}/git/.git-commit-template
+copy ${home_dir}/.git-completion.bash ${dir}/git/.git-completion.bash
+copy ${home_dir}/.gitignore ${dir}/git/.gitignore
+copy ${home_dir}/.gitconfig ${dir}/git/.gitconfig
+
+updating 'vim'
+copy ${home_dir}/.vimrc ${dir}/vim/.vimrc
+
+updating 'zsh'
+copy ${home_dir}/.zshrc ${dir}/zsh/.zshrc
