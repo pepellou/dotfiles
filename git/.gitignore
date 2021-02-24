@@ -26,6 +26,7 @@ local.properties
 
 #Vim files
 *.swp
+*.swo
 
 #Tex files
 *.aux
