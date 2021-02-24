@@ -1,0 +1,6 @@
+#!/bin/bash
+
+repo=$(git remote show origin | ag Fetch | awk '{print $NF}' | tr : /)
+url=https://${repo:4}
+
+open "$url"
