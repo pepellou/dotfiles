@@ -1,6 +1,13 @@
 #!/bin/bash
 
-repo=$(git remote show origin | ag Fetch | awk '{print $NF}' | tr : /)
-url=https://${repo:4}
+repo=$(git remote show origin | ag Fetch | awk '{print $NF}' | awk 'BEGIN {FS="@"} {print $NF}')
+
+if [[ $repo == https* ]]
+then
+    url=${repo}
+else 
+    repo=$(echo $repo | tr : /)
+    url="https://${repo}"
+fi
 
 open "$url"
