@@ -1,0 +1,3 @@
+# Clears vim view history (useful when syntax highlighting breaks)
+
+rm ~/.vim/view/*
