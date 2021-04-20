@@ -1,0 +1,9 @@
+#!/bin/bash
+from=$1
+to=$2
+file=$3
+
+num_lines=$(expr $to - $from + 1)
+
+head -n $to $file | tail -n $num_lines | pbcopy
+bat -r $from:$to $file
