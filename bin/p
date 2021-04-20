@@ -1,0 +1,12 @@
+#!/bin/bash
+clipboard_file=~/.clipboard.list
+
+if [ $# -eq 0 ]; then
+    cat ${clipboard_file} | sort | bat -n
+    exit 0
+fi
+
+result=$(grep "$@" ${clipboard_file} | tail -n 1 | awk 'BEGIN {FS=":"} {for (i=2; i<=NF; i++) print $i}')
+
+echo ${result} | pbcopy
+echo ${result}

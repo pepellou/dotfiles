@@ -1,0 +1,10 @@
+#!/bin/bash
+clipboard_file=~/.clipboard.list
+
+if [ $# -gt 1 ]; then
+    key=$1
+    shift
+    item=$*
+
+    echo "$key:$item" >> ${clipboard_file}
+fi
