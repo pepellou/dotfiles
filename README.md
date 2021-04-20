@@ -14,30 +14,24 @@ Clone the repository:
 
 ```sh
 $ git clone --recursive https://github.com/pepellou/dotfiles.git
+$ cd dotfiles
 ```
 
-Use stow to sym link the conf files you need
+Edit (if needed) the `bin_dir` and `home_dir` variables at the beggining of the `install` and `update` scripts.
+
+Run install script
 
 ```sh
-$ cd ~/dotfiles
-$ stow bash
-$ stow git
-$ stow vim
+$ ./install
 ```
 
-### Install Vim plugins
+Answer any interactive questions.
+
+## Update config files
+
+Some configuration files evolve after installing them. In case you want to update your repository with any new changes on these files, you can copy the new versions to the repository with the script `update`/
 
 ```sh
-$ vim
-:BundleInstall!
-```
-
-## Unlink configuration
-
-Unlink bash configuration example:
-
-```sh
-$ cd ~/dotfiles
-$ stow --delete bash
+$ ./install
 ```
 
