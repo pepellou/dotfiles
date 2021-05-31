@@ -1,0 +1,4 @@
+#!/bin/bash
+
+vi -O ~/Workspace/chessable-docs/LOG.md ~/Workspace/personal/LOG.md
+
