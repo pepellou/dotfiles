@@ -1,0 +1,47 @@
+#!/bin/bash
+workspace=/Users/pepellou/Workspace
+repos=(
+	adventofcode
+	chessable-db
+	chessable-docs
+	chessable-mt2
+	cv-puzzles
+	dotfiles
+	eaganchess.com
+	far2near
+	galician
+	here-tested.org
+	heretested.org
+	knowledge
+	licenses-book
+	lichess-prep
+	misborn
+	old_repositories_from_bitbucket
+	pepellou
+	personal
+	presentation-integration-tests
+	projects
+	qa
+	small-hero-6
+	spanish_from_the_scratch
+	stupid-simple-bash-scripts
+)
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+tempFile=$(mktemp)
+
+
+for i in ${!repos[@]};
+do
+	repo=${repos[$i]}
+	cd ${workspace}/${repo} && git status --porcelain=v1 2>/dev/null > ${tempFile}
+	if [ -s ${tempFile} ]
+	then
+		echo -e "${RED}! ${repo}${NC}"
+		bat -n ${tempFile}
+	else
+		echo -e "${GREEN}✔️ ${repo}${NC}"
+	fi
+done
