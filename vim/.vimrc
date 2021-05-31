@@ -213,3 +213,5 @@ nnoremap <silent> <Leader>m
       \ else <Bar>
       \   let w:long_line_match = matchadd('ErrorMsg', '\%>80v.\+', -1) <Bar>
       \ endif<CR>
+
+set path=$PWD/**
