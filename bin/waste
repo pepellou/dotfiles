@@ -12,7 +12,7 @@ folder_maximum_files_should_be() {
 	max=$1
 	folder=$2
 
-	listing_size=$(ls -l $folder | wc -l)
+	listing_size=$(ls -la $folder | wc -l)
 	num_files=$(expr $listing_size - 3)
 
 	if [[ $num_files -gt $max ]] ; then
@@ -32,7 +32,7 @@ repos_should_have_commits_in_the_last() {
 	do
 		if [ -d "${filename}" ] ; then
 			if [ -d "${filename}/.git" ] ; then
-				num_commits=$(cd ${filename} && git log --since "${timeframe}" | wc -l | awk '{print $1}')
+				num_commits=$(cd ${filename} && git rev-list --count HEAD --since="${timeframe}")
 				if [[ $num_commits -gt 0 ]] ; then
 					if [[ $show_all -eq 1 ]] ; then
 						echo -e "${GREEN}✔️ Repo ${filename} has ${num_commits} commits in the last ${timeframe}${NC}"
