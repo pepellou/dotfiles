@@ -1,0 +1,25 @@
+#!/bin/bash
+
+################################
+# Things I do to start the day #
+################################
+
+function step {
+	message=$1
+	green='\033[0;32m'
+	reset_color='\033[0m'
+
+	echo -e "${green}✔️ ${message}${reset_color}"
+}
+
+step "Play my music work playlist"
+music
+
+step "Open chessable for the daily study"
+open 'https://www.chessable.com'
+
+step "Show waste in computer"
+waste
+
+step "Show pending git work"
+pending
