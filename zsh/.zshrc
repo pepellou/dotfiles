@@ -70,7 +70,7 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(docker-compose chucknorris)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -112,7 +112,7 @@ alias a="clear && ag"
 
 # Configure jump for zsh
 eval "$(jump shell zsh)"
-eval "$(jump shell --bind=z)"
+eval "$(jump shell --bind=g)"
 
 # Configure autocompletions for zsh
 autoload -U +X bashcompinit && bashcompinit
