@@ -4,7 +4,6 @@ repos=(
 	chessable-db
 	chessable-docs
 	chessable-mt2
-	cv-puzzles
 	dotfiles
 	eaganchess.com
 	far2near
@@ -13,11 +12,8 @@ repos=(
 	heretested.org
 	knowledge
 	licenses-book
-	misborn
 	old_repositories_from_bitbucket
-	pepellou
 	personal
-	projects
 	spanish_from_the_scratch
 )
 
