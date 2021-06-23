@@ -23,3 +23,6 @@ waste
 
 step "Show pending git work"
 pending
+
+step "🚀 Off we go!"
+say Off we go - rawr
