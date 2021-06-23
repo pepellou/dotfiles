@@ -34,3 +34,5 @@ if [ "$(command -v exa)" ]; then
 fi
 
 eval "$(starship init bash)"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

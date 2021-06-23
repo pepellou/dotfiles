@@ -127,3 +127,5 @@ source /etc/bash.completion.d/complete_tst
 
 # Add Cargo scripts
 export PATH=${PATH}:/Users/pepellou/.cargo/bin
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
