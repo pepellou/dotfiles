@@ -1,0 +1,74 @@
+#!/bin/bash
+
+function color {
+	name=$1
+	code=$2
+
+	set_color='\033['$code'm'
+	reset_color='\033[0m'
+
+	echo -e "➡️ ${set_color}($code) ${name}${reset_color}"
+}
+
+color 'Black'         '0;30'
+color 'Red'           '0;31'
+color 'Green'         '0;32'
+color 'Brown/Orange'  '0;33'
+color 'Blue'          '0;34'
+color 'Purple'        '0;35'
+color 'Cyan'          '0;36'
+color 'Light Gray'    '0;37'
+
+color 'Dark Gray'     '1;30'
+color 'Light Red'     '1;31'
+color 'Light Green'   '1;32'
+color 'Yellow'        '1;33'
+color 'Light Blue'    '1;34'
+color 'Light Purple'  '1;35'
+color 'Light Cyan'    '1;36'
+color 'White'         '1;37'
+
+color 'Underline Black'  '4;30'
+color 'Underline Red'    '4;31'
+color 'Underline Green'  '4;32'
+color 'Underline Yellow' '4;33'
+color 'Underline Blue'   '4;34'
+color 'Underline Purple' '4;35'
+color 'Underline Cyan'   '4;36'
+color 'Underline White'  '4;37'
+
+color 'Background Black'  '40'
+color 'Background Red'    '41'
+color 'Background Green'  '42'
+color 'Background Yellow' '43'
+color 'Background Blue'   '44'
+color 'Background Purple' '45'
+color 'Background Cyan'   '46'
+color 'Background White'  '47'
+
+color 'Hight Intensity Black'  '0;90'
+color 'Hight Intensity Red'    '0;91'
+color 'Hight Intensity Green'  '0;92'
+color 'Hight Intensity Yellow' '0;93'
+color 'Hight Intensity Blue'   '0;94'
+color 'Hight Intensity Purple' '0;95'
+color 'Hight Intensity Cyan'   '0;96'
+color 'Hight Intensity White'  '0;97'
+
+color 'Bold Hight Intensity Black'  '1;90'
+color 'Bold Hight Intensity Red'    '1;91'
+color 'Bold Hight Intensity Green'  '1;92'
+color 'Bold Hight Intensity Yellow' '1;93'
+color 'Bold Hight Intensity Blue'   '1;94'
+color 'Bold Hight Intensity Purple' '1;95'
+color 'Bold Hight Intensity Cyan'   '1;96'
+color 'Bold Hight Intensity White'  '1;97'
+
+color 'High Intensity Background IBlack'  '0;100'
+color 'High Intensity Background IRed'    '0;101'
+color 'High Intensity Background IGreen'  '0;102'
+color 'High Intensity Background IYellow' '0;103'
+color 'High Intensity Background IBlue'   '0;104'
+color 'High Intensity Background IPurple' '0;105'
+color 'High Intensity Background ICyan'   '0;106'
+color 'High Intensity Background IWhite'  '0;107'
