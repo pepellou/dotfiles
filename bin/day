@@ -7,9 +7,10 @@
 function step {
 	message=$1
 	green='\033[0;32m'
+	gray='\033[1;90m'
 	reset_color='\033[0m'
 
-	echo -e "${green}✔️ ${message}${reset_color}"
+	echo -e "➡️ ${gray}${message} ${green}✔️${reset_color}"
 }
 
 step "Play my music work playlist"
@@ -24,7 +25,7 @@ waste
 step "Show pending git work"
 pending
 
-step "🚀 Off we go!"
+step "🚀 Say off we go rawr!"
 say Off we go - rawr
 
 step "Show weather forecast for Eagan"
