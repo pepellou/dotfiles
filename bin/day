@@ -29,4 +29,4 @@ step "🚀 Say off we go rawr!"
 say Off we go - rawr
 
 step "Show weather forecast for Eagan"
-weather Eagan
+echo '' && weather '44.80597038491547,-93.1433129310608?0mFQ' && echo '' && weather '44.80597038491547,-93.1433129310608?1FQ'
