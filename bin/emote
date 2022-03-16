@@ -8,5 +8,5 @@ fi
 
 result=$(grep "$@" ${emotes_file} | tail -n 1 | awk 'BEGIN {FS=":"} {print $2}')
 
-echo ${result} | pbcopy
+echo ${result} | tr -d "\n" | pbcopy 
 echo ${result}
