@@ -1,0 +1,6 @@
+alacritty -t "htop" -d 82 32 --position 2890 40 --working-directory /Users/pepellou/Workspace/chessable-mt2 &
+alacritty -t "calcurse" -d 82 28 --position 2890 960 --working-directory /Users/pepellou/Workspace/chessable-mt2 &
+alacritty -t "task" -d 100 28 --position 4615 960 --working-directory /Users/pepellou/Workspace/chessable-mt2 &
+alacritty -t "irssi" -d 100 28 --position 4615 40 --working-directory /Users/pepellou/Workspace/chessable-mt2 &
+
+alacritty -t "code" -d 143 42 --position 0 0 --working-directory /Users/pepellou/Workspace/chessable-mt2 &
