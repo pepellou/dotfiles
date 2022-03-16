@@ -1,0 +1,3 @@
+# Report git contributors ranking by number of commits
+
+git shortlog -sn | bat -n
