@@ -1,0 +1,7 @@
+# Opens all wordle variants
+
+open 'https://jackli.gg/chessle/'
+open 'https://worldle.teuteuf.fr/'
+open 'https://www.nytimes.com/games/wordle/index.html'
+open 'https://globle-game.com/'
+open 'https://octordle.com/'
