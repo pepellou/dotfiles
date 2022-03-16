@@ -1,0 +1,7 @@
+#!/bin/bash
+
+##########################################
+# Open StackOverflow to answer questions #
+##########################################
+
+open 'https://stackoverflow.com/search?tab=newest&q=answers%3a0%20git'
