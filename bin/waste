@@ -1,57 +1,27 @@
 #!/bin/bash
 
 # Things that are waste:
-# - More than 10 files in ~/Downloads
+# - Number of files in ~/Downloads
 # - Repos in ~/Workspace with 0 commits in the last 2 weeks
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
-folder_maximum_files_should_be() {
-	max=$1
-	folder=$2
+print_number_of_files_in() {
+	folder=$1
 
 	listing_size=$(ls -la $folder | wc -l)
 	num_files=$(expr $listing_size - 3)
 
-	if [[ $num_files -gt $max ]] ; then
-		echo -e "${RED}✖️ Folder ${folder} contains ${num_files} files${NC}"
-	else
-		if [[ $show_all -eq 1 ]] ; then
-			echo -e "${GREEN}✔️ Folder ${folder} contains ${num_files} files${NC}"
-		fi
-	fi
+	echo -e "${RED}✖️ Folder ${folder} contains ${num_files} files${NC}"
 }
 
-repos_should_have_commits_in_the_last() {
-	timeframe=$1
-	repos_folder=$2
+print_number_of_files_in ~/Downloads
+print_number_of_files_in ~/Documents/Chess/inbox
+print_number_of_files_in ~/Pictures/inbox
 
-	for filename in ${repos_folder}/*
-	do
-		if [ -d "${filename}" ] ; then
-			if [ -d "${filename}/.git" ] ; then
-				num_commits=$(cd ${filename} && git rev-list --count HEAD --since="${timeframe}")
-				if [[ $num_commits -gt 0 ]] ; then
-					if [[ $show_all -eq 1 ]] ; then
-						echo -e "${GREEN}✔️ Repo ${filename} has ${num_commits} commits in the last ${timeframe}${NC}"
-					fi
-				else
-					echo -e "${RED}✖️ Repo ${filename} has ${num_commits} commits in the last ${timeframe}${NC}"
-				fi
-			fi
-		fi
-	done
-}
-
-if [ $# -gt 0 ]; then
-	show_all=1
-else
-	show_all=0
-fi
-
-folder_maximum_files_should_be 10 ~/Downloads
-folder_maximum_files_should_be 20 ~/Documents/Chess/inbox
-folder_maximum_files_should_be 20 ~/Pictures/inbox
-repos_should_have_commits_in_the_last '2 weeks' ~/Workspace
+echo
+echo
+echo '[ task projects +week ]'
+task projects +week
