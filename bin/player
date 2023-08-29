@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+# Adds a new chess player to local repository
+
+people=~/Workspace/Chess/People
+
+playerName=$1
+
+function newPlayer {
+	headline='============================================================================='
+
+	echo -n "Full name: "
+	read fullName
+
+	echo -n "Title: (leave empty if not) "
+	read title
+
+	echo -n "chess.com handle: "
+	read chesscomHandle
+
+	echo -n "FIDE ID: "
+	read fideId
+
+	echo -n "Country: "
+	read country
+
+	card=$(mktemp)
+
+	echo $fullName > $card
+	echo ${headline:0:${#fullName}} >> $card
+	echo >> $card
+
+	[ "$title" == "" ] || {
+		echo $title >> $card
+	}
+
+	echo "https://www.chess.com/member/$chesscomHandle" >> $card
+	echo "https://ratings.fide.com/profile/$fideId" >> $card
+
+	mkdir -p $people/Federation/$country
+	fileName=$(echo $fullName | sed 's/ //g' | sed 's/,//g')
+
+	cp $card $people/Federation/$country/$fileName.md
+	cp $card $people/chess.com/$chesscomHandle.md
+}
+
+function findPlayer {
+	name=$1
+
+	cd $people
+
+	records=$(mktemp)
+	rg -l $name > $records
+
+	while read file
+	do
+		echo "$file"
+	done < $records
+
+	bat $(tail -n 1 $records)
+}
+
+[ "$playerName" == "" ] && {
+	newPlayer
+} || {
+	findPlayer $playerName
+}
