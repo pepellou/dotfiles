@@ -1,3 +1,93 @@
-# Opens my music for coding
+#!/bin/bash
+#
+# Plays music from ~/Music/mp3
 
-open -a safari 'https://www.youtube.com/watch?v=K8kXcNqWN8g'
+music=/Users/pepellou/Music/mp3/
+
+filter=$1
+
+function kill_songs {
+	for pid in $(ps aux | rg afplay | awk '{print $2}')
+	do
+		kill -9 $pid 2> /dev/null
+	done
+}
+
+function ctrl_c {
+	kill_songs
+
+	echo
+	echo
+	echo "Thanks for listening! 👋"
+	echo
+
+	exit 0
+}
+
+trap ctrl_c INT
+
+playlist=$(mktemp)
+playlist_shuffled=$(mktemp)
+fileInfo=$(mktemp)
+durationInfo=$(mktemp)
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+find $music -type f -name "*${filter}*.mp3" > $playlist
+shuf $playlist > $playlist_shuffled
+
+while read toPlay
+do
+	ffmpeg -i ${toPlay} 2> $fileInfo
+	rg Duration $fileInfo | awk '{print $2}' | sed 's/.$//' | sed 's/\..*$//' >> $durationInfo
+done < $playlist_shuffled
+
+numSongs=$(wc -l $playlist_shuffled | awk '{print $1}')
+
+for n in $(seq 1 $numSongs)
+do
+	toPlay=$(head -n $n $playlist_shuffled | tail -n 1)
+	duration=$(head -n $n $durationInfo | tail -n 1)
+	[ $n -lt $numSongs ] && {
+		n1=$(expr $n + 1)
+		nextToPlay=$(head -n $n1 $playlist_shuffled | tail -n 1)
+		nextMessage="next: ${nextToPlay:${#music}}"
+	} || {
+		nextMessage="last song"
+	}
+
+	duration_s=$(echo ${duration} | awk 'BEGIN {FS=":"} {print $NF}')
+	duration_min=$(echo ${duration} | awk 'BEGIN {FS=":"} {print $(NF-1)}')
+	duration_h=$(echo ${duration} | awk 'BEGIN {FS=":"} {print $(NF-2)}')
+	total_s=$(expr 3600 \* $duration_h + 60 \* $duration_min + $duration_s)
+
+	afplay $toPlay &
+
+	while [ $total_s -ge 0 ]
+	do
+		remaining_h=$(expr $total_s \/ 3600)
+		remaining_min=$(expr \( $total_s - 3600 \* $remaining_h \) \/ 60)
+		remaining_s=$(expr $total_s - 3600 \* $remaining_h - 60 \* $remaining_min)
+		[ $remaining_h -lt 10 ] && {
+			remaining_h="0$remaining_h"
+		}
+		[ $remaining_min -lt 10 ] && {
+			remaining_min="0$remaining_min"
+		}
+		[ $remaining_s -lt 10 ] && {
+			remaining_s="0$remaining_s"
+		}
+		echo -en " ($n/$numSongs) Playing ${BLUE}${toPlay:${#music}}${NC} [${YELLOW}${remaining_h}:${remaining_min}:${remaining_s}${NC}] ~ ${CYAN}${nextMessage}${NC}"\\r
+		sleep 1
+		total_s=$(expr $total_s - 1)
+	done
+
+	echo " ✔️ ${toPlay:${#music}}                                                                               "
+
+done < $playlist_shuffled
