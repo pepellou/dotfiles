@@ -1,0 +1,38 @@
+#!/bin/bash
+
+integration=/Users/pepellou/Workspace/chessable-mt2/integration
+mt1=/Users/pepellou/Workspace/chessable-mt2/mt1
+mt2=/Users/pepellou/Workspace/chessable-mt2/mt2
+jira=/Users/pepellou/Workspace/chessable-mt2/jira
+
+toSearch=$1
+[[ "$toSearch" == "" ]] && {
+	echo -n "What to find? "
+	read toSearch
+}
+
+project_file=~/.vim_projects/$toSearch
+rm -f ${project_file}
+
+function addFolder {
+	title=$1
+	location=$2
+	toSearch=$3
+
+	echo "${title}=${location} {" >> $project_file
+	for file in $(cd $location && find . -type f -name "*${toSearch}*")
+	do
+		echo " $file" >> $project_file
+	done
+	echo "}" >> $project_file
+	echo '' >> $project_file
+}
+
+addFolder Integration $integration "$toSearch"
+addFolder MT1 $mt1 "$toSearch"
+addFolder MT2 $mt2 "$toSearch"
+addFolder Jira $jira "$toSearch"
+
+project "${toSearch}"
+
+vi +Project
