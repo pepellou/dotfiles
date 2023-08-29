@@ -1,0 +1,4 @@
+# Creates a new set of commands for twitch custom-api + opens the nightbot custom command page to set them up
+
+open 'https://twitch.center/customapi/quote/generate'
+open 'https://nightbot.tv/commands/custom'
