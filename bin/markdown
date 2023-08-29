@@ -1,0 +1,4 @@
+#!/bin/bash
+cheatsheet=~/.md-cheatsheet
+
+bat $cheatsheet
