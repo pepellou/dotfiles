@@ -1,0 +1,16 @@
+#!/bin/bash
+
+pattern=$1;
+file=~/Workspace/Chess/Lessons/pepellou-all-studies.pgn
+
+for line in $(rg -n "Event.*$pattern" $file | awk 'BEGIN {FS=":"} {print $1}')
+do
+	event=$(head -n $line $file| tail -n 1 | awk 'BEGIN {FS="\""} {print $2}')
+	fen=$(head -n $line $file| tail -n 20 | rg 'FEN ')
+	[ "$fen" != "" ] && {
+		echo $event
+		echo -n '    '
+		echo $fen | awk 'BEGIN {FS="\""} {print $2}'
+		echo
+	}
+done
