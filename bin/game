@@ -1,0 +1,20 @@
+#!/bin/bash
+
+pattern=$1;
+file=~/Workspace/Chess/Lessons/pepellou-all-studies.pgn
+
+indexes=$(mktemp)
+
+for num in $(rg -n "$pattern" $file | awk 'BEGIN {FS=":"} {print $1}')
+do
+	head -n $num $file | rg -n 'Event ' | tail -n 1
+done | uniq | awk 'BEGIN {FS=":"} {print $1}' > $indexes
+
+while read index
+do
+	numLines=$(tail -n +"$index" $file | rg -n 'Event ' | head -n 2 | tail -n 1 | awk 'BEGIN {FS=":"} {print $1}')
+	numLines=$(expr $numLines - 1)
+	tail -n +"$index" $file | head -n $numLines | pbcopy
+	tail -n +"$index" $file | head -n $numLines
+	echo
+done < $indexes
