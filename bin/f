@@ -1,0 +1,7 @@
+#!/bin/zsh
+
+temp=$(mktemp)
+
+find . | rg $1 > $temp
+cat $temp | pbcopy
+cat $temp
