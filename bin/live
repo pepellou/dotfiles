@@ -1,0 +1,8 @@
+# Shows list of live streamers
+
+tmpFile=$(mktemp)
+
+for streamer in $(cat ~/.config/twitch/streamers)
+do
+	islive $streamer > $tmpFile && cat $tmpFile && echo
+done
