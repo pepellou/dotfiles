@@ -38,6 +38,15 @@ function copy_config {
     fi
 }
 
+function safe_copy {
+    origin=$1
+    destination=$2
+
+    diff ${origin} ${destination} > /dev/null || {
+        copy_config ${origin} ${destination}
+    }
+}
+
 function copy_dir {
     origin=$1
     destination=$2
@@ -48,9 +57,18 @@ function copy_dir {
 
 function ask_for {
     what=$1
+    default=$2
 
-    echo -en "   ❓ Please enter \"\e[32m${what}\e[0m\": "
-    read value
+    if [ "$default" = "" ]; then
+        echo -en "   ❓ Please enter \"\e[32m${what}\e[0m\": "
+        read value
+    else
+        echo -en "   ❓ Please enter \"\e[32m${what}\e[0m\" ($default): "
+        read value
+        if [ "$value" = "" ]; then
+            value=$default
+        fi
+    fi
 }
 
 function copy_temp_file_from {
@@ -89,13 +107,16 @@ copy_dir ${dir}/bin ${bin_dir}
 installing 'emotes list config'
 copy_config ${dir}/configs/.emotes.list ${home_dir}/.emotes.list
 
+installing 'markdown cheatsheet config'
+copy_config ${dir}/configs/.md-cheatsheet ${home_dir}/.md-cheatsheet
+
 installing 'git'
 copy ${dir}/git/.git-commit-template ${home_dir}/.git-commit-template
 copy ${dir}/git/.git-completion.bash ${home_dir}/.git-completion.bash
-copy ${dir}/git/.gitignore ${home_dir}/.gitignore
-ask_for 'Git user name' && git_user_name=${value}
-ask_for 'Git user email' && git_user_email=${value}
-ask_for 'Github user' && github_user=${value}
+safe_copy ${dir}/git/.gitignore ${home_dir}/.gitignore
+ask_for 'Git user name' 'pepellou' && git_user_name=${value}
+ask_for 'Git user email' 'pepellou@gmail.com' && git_user_email=${value}
+ask_for 'Github user' 'pepellou' && github_user=${value}
 copy_temp_file_from ${dir}/git/.gitconfig
 replace_in_temp_file '{user.email}' ${git_user_email}
 replace_in_temp_file '{user.name}' ${git_user_name}
