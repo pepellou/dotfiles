@@ -1,0 +1,57 @@
+#!/bin/bash
+
+netlog=~/.config/.netlog
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+DARK_GREEN='\033[1;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[1;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+function header {
+	echo
+	echo -e "       ${BLUE}TIME${NC} |             ${BLUE}up${NC} |           ${BLUE}down${NC} | ${BLUE}responsiveness${NC} | ${BLUE}latency${NC}"
+	echo "------------+----------------+----------------+----------------+----------------------"
+}
+
+function print_measurement {
+	stamp=$1
+	up=$2
+	down=$3
+	resp=$4
+	ms=$5
+
+	ss=$(printf "%11s" "$stamp")
+	uu=$(printf "%14s" "$up")
+	dd=$(printf "%14s" "$down")
+	rr=$(printf "%-14s" "$resp")
+	mm=$(printf "%10s" "$ms")
+	echo -e "${GREEN}${ss}${NC} | ${DARK_GREEN}${uu}${NC} | ${DARK_GREEN}${dd}${NC} | ${GREEN}${rr}${NC} | ${GREEN}${mm}${NC}"
+}
+
+function print_last {
+	up=$(rg 'Uplink capacity' $netlog | tail -n 1 | awk '{print $3, $4}')
+	down=$(rg 'Downlink capacity' $netlog | tail -n 1 | awk '{print $3, $4}')
+	resp=$(rg 'Responsiveness' $netlog | tail -n 1 | awk '{print $2, $3, $4}')
+	latency=$(rg 'Idle Latency' $netlog | tail -n 1 | awk '{print $3, $4}')
+	when=$(rg 'Start:' $netlog | tail -n 1 | awk '{print $3}')
+
+	print_measurement "$when" "$up" "$down" "$resp" "$latency"
+}
+
+rm -f $netlog
+
+header
+
+while true
+do
+	echo -ne "   > ${CYAN}measurement in progress${NC} \033[0K\r"
+	networkQuality -v >> $netlog
+	print_last
+	nextMeasure=$(date -v +10M +"%H:%M")
+	echo -ne "   > ${YELLOW}next measurement at ${RED}$nextMeasure${NC} \033[0K\r"
+	sleep 600
+done
