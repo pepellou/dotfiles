@@ -1,0 +1,11 @@
+#!/bin/bash
+
+tmp=$(mktemp)
+
+echo "Manipulates rating by creating account with 400 rating when their strength is clearly higher." >> $tmp
+echo "Uses that to get easier pairings and win arena." >> $tmp
+echo "" >> $tmp
+echo "Likely doing it again with a new account." >> $tmp
+
+cat $tmp | pbcopy
+cat $tmp
