@@ -1,0 +1,6 @@
+#!/bin/bash
+echo 'task +today projects'
+echo -n 'task +today projects' | pbcopy
+echo
+
+task +today projects
