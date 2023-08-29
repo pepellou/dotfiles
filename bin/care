@@ -1,0 +1,21 @@
+#!/bin/bash
+
+updates_folder=~/.care.updates
+
+tmp_file=$(mktemp)
+
+cd ${updates_folder}
+
+for file in *
+do
+	n=$(wc -l $file | awk '{print $1}')
+	last=$(tail -n 1 $file | awk '{print $2}')
+	echo "$file - $n updates (last: $last)" >> ${tmp_file}
+done
+
+column -t -s' ' ${tmp_file} | sort -k 6
+
+echo
+echo 'commands:'
+echo '  > how mum'
+echo '  > update mum Sent cheese pie recipe. Sounded sad.'

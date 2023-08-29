@@ -1,0 +1,38 @@
+#!/bin/bash
+# 
+# Keep a list of people to check on
+#
+# Examples:
+#
+#    how mum
+#        > 05/23 Videocall. All good.
+#        > 05/27 Sent cheese pie recipe. Sounded sad.
+#
+#    update mum Called her. All good, but doc appointment next Monday.
+#
+#    how mum
+#        > 05/23 Videocall. All good.
+#        > 05/27 Sent cheese pie recipe. Sounded sad.
+#        > 06/02 Called her. All good, but doc appointment next Monday.
+
+updates_folder=~/.care.updates
+
+mkdir -p ${updates_folder}
+
+if [ $# -eq 0 ]; then
+	echo Syntax $0 '<who>'
+	exit 0
+fi
+
+person=$1
+log=${updates_folder}/${person}
+
+if [ -f "$log" ]; then
+	bat $log
+else
+	echo No updates recorded for $person yet.
+	echo
+	echo Use:
+	echo '    update' $person ' <message>'
+	echo
+fi
