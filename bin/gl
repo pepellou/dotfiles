@@ -1,0 +1,14 @@
+#!/bin/bash
+
+greetings=(
+	'Hello - good luck have fun!'
+	'Hi - good luck have fun!'
+	'Hello! Good luck, have fun :-)'
+	'Hi! Good luck, have fun :-)'
+)
+
+size=${#greetings[@]}
+index=$(($RANDOM % $size))
+echo ${greetings[$index]} | pbcopy
+echo ${greetings[$index]}
+
