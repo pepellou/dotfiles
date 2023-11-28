@@ -1,5 +1,10 @@
 #!/bin/zsh
 #
+# ./install
+#     Runs step by step installation
+#
+# ./install -s
+#     Runs silent installation (default values and no output)
 
 bin_dir=/usr/local/bin
 home_dir=${HOME}
@@ -7,17 +12,27 @@ home_dir=${HOME}
 dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 tempFile=${dir}/tmpSDFJPOIJHJKedgekjn.temporal
 
+silent=off
+if [ "$1" = "-s" ]; then
+    silent=on
+fi
+
+
 function installing {
     what=$1
 
-    echo -e " \e[32m✔️\e[0m Installing \e[31m${what}\e[0m:"
+    if [ "${silent}" = "off" ]; then
+        echo -e " \e[32m✔️\e[0m Installing \e[31m${what}\e[0m:"
+    fi
 }
 
 function copy {
     origin=$1
     destination=$2
 
-    echo -e "   \e[32m-\e[0m \e[90m${destination}\e[0m"
+    if [ "${silent}" = "off" ]; then
+        echo -e "   \e[32m-\e[0m \e[90m${destination}\e[0m"
+    fi
     cp ${origin} ${destination}
 }
 
@@ -26,15 +41,17 @@ function copy_config {
     destination=$2
     write=n
 
-    if [ -f "${destination}" ]; then
-        echo -en "   ❓ Overwrite \"\e[32m${destination}\e[0m\"? (y/n) "
-        read write
-    else
-        write=y
-    fi
+    if [ "${silent}" = "off" ]; then
+        if [ -f "${destination}" ]; then
+            echo -en "   ❓ Overwrite \"\e[32m${destination}\e[0m\"? (y/N) "
+            read write
+        else
+            write=y
+        fi
 
-    if [ "$write" = "y" ]; then
-        copy ${origin} ${destination}
+        if [ "$write" = "y" ]; then
+            copy ${origin} ${destination}
+        fi
     fi
 }
 
@@ -51,7 +68,9 @@ function copy_dir {
     origin=$1
     destination=$2
 
-    echo -e "   \e[32m-\e[0m \e[90m${destination}/*\e[0m"
+    if [ "${silent}" = "off" ]; then
+        echo -e "   \e[32m-\e[0m \e[90m${destination}/*\e[0m"
+    fi
     cp ${origin}/* ${destination}/
 }
 
@@ -59,15 +78,19 @@ function ask_for {
     what=$1
     default=$2
 
-    if [ "$default" = "" ]; then
-        echo -en "   ❓ Please enter \"\e[32m${what}\e[0m\": "
-        read value
-    else
-        echo -en "   ❓ Please enter \"\e[32m${what}\e[0m\" ($default): "
-        read value
-        if [ "$value" = "" ]; then
-            value=$default
+    if [ "${silent}" = "off" ]; then
+        if [ "$default" = "" ]; then
+            echo -en "   ❓ Please enter \"\e[32m${what}\e[0m\": "
+            read value
+        else
+            echo -en "   ❓ Please enter \"\e[32m${what}\e[0m\" ($default): "
+            read value
+            if [ "$value" = "" ]; then
+                value=$default
+            fi
         fi
+    else
+        value=$default
     fi
 }
 

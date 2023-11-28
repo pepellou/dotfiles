@@ -37,10 +37,10 @@ function newPlayer {
 	echo "https://www.chess.com/member/$chesscomHandle" >> $card
 	echo "https://ratings.fide.com/profile/$fideId" >> $card
 
-	mkdir -p $people/Federation/$country
+	mkdir -p "$people/Federation/$country"
 	fileName=$(echo $fullName | sed 's/ //g' | sed 's/,//g')
 
-	cp $card $people/Federation/$country/$fileName.md
+	cp $card "$people/Federation/$country/$fileName.md"
 	cp $card $people/chess.com/$chesscomHandle.md
 }
 
@@ -52,12 +52,17 @@ function findPlayer {
 	records=$(mktemp)
 	rg -l $name > $records
 
+	[ -s $records ] || {
+		echo "No records found."
+		exit 0
+	}
+
 	while read file
 	do
 		echo "$file"
 	done < $records
 
-	bat $(tail -n 1 $records)
+	bat "$(tail -n 1 $records)"
 }
 
 [ "$playerName" == "" ] && {

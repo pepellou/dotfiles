@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+
+function thingsToDo {
+	open 'https://www.chessable.com/profile/Kouga16/'
+	open 'https://www.chessable.com/profile/Benni2034/'
+}
+
+cmd=$1
+
+case $cmd in
+
+	edit)
+		vi /Users/pepellou/Workspace/dotfiles/bin/monitor
+		cd /Users/pepellou/Workspace/dotfiles && ./install -s
+		;;
+
+esac
+
+thingsToDo

@@ -2,9 +2,16 @@
 #
 # Plays music from ~/Music/mp3
 
+verbose=true
 music=/Users/pepellou/Music/mp3/
 
 filter=$1
+
+function debug {
+	message=$1
+
+	$verbose && echo -e " [${RED}debug${NC}] ${GREEN}${message}${NC}"
+}
 
 function kill_songs {
 	for pid in $(ps aux | rg afplay | awk '{print $2}')
@@ -14,14 +21,23 @@ function kill_songs {
 }
 
 function ctrl_c {
+	echo
+	echo
+
+	debug "Trapped Ctrl+C. Killing any songs being played."
+
 	kill_songs
 
-	echo
-	echo
 	echo "Thanks for listening! 👋"
 	echo
 
 	exit 0
+}
+
+function songTitle {
+	fileName=$1
+
+	echo $1 | sed 's/.*\///' | sed 's/\.mp3$//'
 }
 
 trap ctrl_c INT
@@ -39,7 +55,12 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-find $music -type f -name "*${filter}*.mp3" > $playlist
+[ "$filter" = "list" ] && {
+	tree $music
+	exit
+}
+
+find $music -type f -name "*.mp3" | rg $filter > $playlist
 shuf $playlist > $playlist_shuffled
 
 while read toPlay
@@ -53,11 +74,13 @@ numSongs=$(wc -l $playlist_shuffled | awk '{print $1}')
 for n in $(seq 1 $numSongs)
 do
 	toPlay=$(head -n $n $playlist_shuffled | tail -n 1)
+	songToPlay=$(songTitle $toPlay)
 	duration=$(head -n $n $durationInfo | tail -n 1)
 	[ $n -lt $numSongs ] && {
 		n1=$(expr $n + 1)
 		nextToPlay=$(head -n $n1 $playlist_shuffled | tail -n 1)
-		nextMessage="next: ${nextToPlay:${#music}}"
+		nextSong=$(songTitle ${nextToPlay})
+		nextMessage="next: ${nextSong}"
 	} || {
 		nextMessage="last song"
 	}
@@ -69,8 +92,12 @@ do
 
 	afplay $toPlay &
 
-	while [ $total_s -ge 0 ]
+	now=$(date +"%s")
+	endingAt=$(expr $now + $total_s)
+
+	while [ $now -le $endingAt ]
 	do
+		total_s=$(expr $endingAt - $now)
 		remaining_h=$(expr $total_s \/ 3600)
 		remaining_min=$(expr \( $total_s - 3600 \* $remaining_h \) \/ 60)
 		remaining_s=$(expr $total_s - 3600 \* $remaining_h - 60 \* $remaining_min)
@@ -83,11 +110,13 @@ do
 		[ $remaining_s -lt 10 ] && {
 			remaining_s="0$remaining_s"
 		}
-		echo -en " ($n/$numSongs) Playing ${BLUE}${toPlay:${#music}}${NC} [${YELLOW}${remaining_h}:${remaining_min}:${remaining_s}${NC}] ~ ${CYAN}${nextMessage}${NC}"\\r
+		echo -en " ($n/$numSongs) Playing ${BLUE}${songToPlay}${NC} [${YELLOW}${remaining_h}:${remaining_min}:${remaining_s}${NC}] ~ ${CYAN}${nextMessage}${NC}"\\r
 		sleep 1
-		total_s=$(expr $total_s - 1)
+		now=$(date +"%s")
 	done
 
-	echo " ✔️ ${toPlay:${#music}}                                                                               "
+	echo " ✔️ ${songToPlay}                                                                               "
 
 done < $playlist_shuffled
+
+kill_songs

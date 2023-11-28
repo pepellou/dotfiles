@@ -1,4 +1,56 @@
 #!/bin/bash
 
-vi -O ~/Workspace/chessable-docs/LOG.md ~/Workspace/personal/LOG.md
+workLog=~/Workspace/chessable-docs/LOG.md
+personalLog=~/Workspace/personal/LOG.md
 
+cmd=$1
+
+function findText {
+	what=$1
+	where=$2
+
+	rg -n $1 $2 | sed 's/\:.*$//'
+}
+
+function findNextParagraph {
+	pos=$1
+	where=$2
+
+	count=$(tail -n +${pos} $2 | rg -n '^$' | head -n 1 | tail -n 1 | sed 's/\:.*$//')
+	expr $pos + $count
+}
+
+function showNext {
+	logFile=$1
+
+	from=$(findText Next $logFile)
+	to=$(expr $(findNextParagraph $from $logFile) - 1)
+	lines $from $to $logFile
+}
+
+function showToday {
+	logFile=$1
+
+	from=$(findText Next $logFile)
+	from=$(findNextParagraph $from $logFile)
+	to=$(expr $(findNextParagraph $from $logFile) - 1)
+	lines $from $to $logFile
+}
+
+case $cmd in
+
+	next)
+		showNext $workLog
+		showNext $personalLog
+		exit
+		;;
+
+	today)
+		showToday $workLog
+		showToday $personalLog
+		exit
+		;;
+
+esac
+
+vi -O ${workLog} ${personalLog}
