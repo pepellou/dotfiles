@@ -3,5 +3,7 @@
 temp=$(mktemp)
 
 find . | rg $1 > $temp
-cat $temp | pbcopy
 cat $temp
+
+truncate -s -1 $temp
+cat $temp | pbcopy
